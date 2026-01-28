@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    <title>RetroWave OS 95</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden; /* Prevent scrolling on the desktop body */
+        background-color: #008080; /* Classic Teal */
+      }
+      .retro-font {
+        font-family: 'VT323', monospace;
+      }
+      /* Pixelated cursor for that authentic feel */
+      * {
+        cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAATCAYAAABGKffQAAAACXBIWXMAAAsTAAALEwEAmpwYAAABCElEQVR4nK2SsQ3CMBBFT4QBKGgpGYAVmIABGIAJGIANGCEVBQ0VEgUbUFJQgARSgIQUfOLz+eyEP+lr/Pzs891dDMBqtVqvVqvV6k+r1Wq1Wq0+Xo/X4/V4PV6P1+P1eD1ej9fj9Xg9Xo/X4/V4PV6v1+v1+uf6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6+/r7+vv6AAAAABJRU5ErkJggg==') 0 0, default;
+      }
+      button, a {
+        cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAYCAYAAADKx8xXAAAACXBIWXMAAAsTAAALEwEAmpwYAAABGElEQVR4nK2UsQ3CMBCGPySEKChpKRmAFZiAAZiAAZiAAZiA0VGkQooCJaWgoqKgoKCg4BOO7diJ4y/xS58s+5/7fXfOTgghhBDiY4QQYhRrrV6t1Wq1Wq3+Wa3VarVar/9Yr9frdZ/r9Xq9Xq/X6/V6vV6v1+v1er1er9fr9Xq9Xq/X6/V6vV6v1+v1er1er9fr9Xq9Xq/X6/V6vV6v1+v1er1er9fr9Xq9Xq/X6/V6vV6v1+v1er1er9fr9Xq9Xq/X6/V6vV6v1+v1er1er9fr9Xq9Xq/X6/V6vV6v1+v1er1er9fr9Xq9Xq/X6/V6vV6v1+v1er1er9fr9Xq9Xq/X6/V6vV6v1+v1er1er9fr9Xq9Xq/XAAAAABJRU5ErkJggg==') 7 0, pointer;
+      }
+      .pixelated {
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
+      }
+      /* Fade in animation for boot screen */
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      .animate-fadeIn {
+        animation: fadeIn 1s ease-in;
+      }
+      /* Custom Scrollbar for that 90s feel */
+      ::-webkit-scrollbar {
+        width: 16px;
+        height: 16px;
+        background: #c0c0c0;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #c0c0c0;
+        border: 2px solid #fff;
+        border-right-color: #000;
+        border-bottom-color: #000;
+        box-shadow: inset 1px 1px #dfdfdf, inset -1px -1px #808080;
+      }
+      ::-webkit-scrollbar-button {
+        background: #c0c0c0;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #fff;
+        border-right-color: #000;
+        border-bottom-color: #000;
+        box-shadow: inset 1px 1px #dfdfdf, inset -1px -1px #808080;
+      }
+      /* 95 Bevel Utilities */
+      .bevel-out {
+        box-shadow: inset 1px 1px #fff, inset -1px -1px #000, inset 2px 2px #dfdfdf, inset -2px -2px #808080;
+      }
+      .bevel-in {
+        box-shadow: inset 1px 1px #000, inset -1px -1px #fff, inset 2px 2px #808080, inset -2px -2px #dfdfdf;
+      }
+      /* Text selection styling */
+      ::selection {
+        background: #000080;
+        color: white;
+      }
+      ::-moz-selection {
+        background: #000080;
+        color: white;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
