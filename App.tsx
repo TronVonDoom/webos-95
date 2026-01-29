@@ -5,6 +5,7 @@ import { RetroButton } from './components/ui/RetroButton';
 import { ContextMenu } from './components/ui/ContextMenu';
 import { BootScreen } from './components/BootScreen';
 import { BiosScreen } from './components/BiosScreen';
+import { SoundPrompt } from './components/SoundPrompt';
 import { Screensaver } from './components/Screensaver';
 import { PixelStudio } from './components/apps/PixelStudio';
 import { Trivia } from './components/apps/Trivia';
@@ -90,8 +91,12 @@ const INITIAL_USB_FILES: FileItem[] = [
 ];
 
 const App: React.FC = () => {
+  const [soundPromptShown, setSoundPromptShown] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(false);
   const [showBios, setShowBios] = useState(true);
   const [hasBooted, setHasBooted] = useState(false);
+  const [showBlackScreen, setShowBlackScreen] = useState(false);
+  const bootAudioRef = React.useRef<HTMLAudioElement | null>(null);
   const [showScreensaver, setShowScreensaver] = useState(false);
   const [lastActivity, setLastActivity] = useState(Date.now());
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; items: any[] } | null>(null);
@@ -105,7 +110,6 @@ const App: React.FC = () => {
   const [usbFiles, setUsbFiles] = useState<FileItem[]>(INITIAL_USB_FILES);
   const [activeTransferFile, setActiveTransferFile] = useState<string | null>(null);
   const [activeImage, setActiveImage] = useState<{ url: string; name: string } | null>(null);
-  const [soundEnabled, setSoundEnabled] = useState(true);
 
   React.useEffect(() => {
     const timer = setInterval(() => {
@@ -270,11 +274,72 @@ const App: React.FC = () => {
 
   return (
     <>
+      {/* Sound Prompt */}
+      {!soundPromptShown && (
+        <SoundPrompt 
+          onContinue={(enableSound) => {
+            setSoundEnabled(enableSound);
+            setSoundPromptShown(true);
+            
+            // Start boot audio if sound is enabled
+            if (enableSound) {
+              bootAudioRef.current = new Audio('https://cdn.pixabay.com/audio/2022/02/07/audio_4c00022a75.mp3');
+              bootAudioRef.current.volume = 0.4;
+              bootAudioRef.current.playbackRate = 1.5; // 150% speed
+              bootAudioRef.current.loop = true;
+              bootAudioRef.current.play().catch(err => console.log('Boot audio failed:', err));
+            }
+            
+            // Show black screen for 2 seconds before BIOS
+            setShowBlackScreen(true);
+            setTimeout(() => {
+              setShowBlackScreen(false);
+            }, 2000);
+          }} 
+        />
+      )}
+      
+      {/* Black Screen */}
+      {soundPromptShown && showBlackScreen && (
+        <div className="w-screen h-screen bg-black"></div>
+      )}
+      
       {/* BIOS Screen */}
-      {showBios && <BiosScreen onBiosComplete={() => setShowBios(false)} onSkipToDesktop={() => { setShowBios(false); setHasBooted(true); }} />}
+      {soundPromptShown && !showBlackScreen && showBios && (
+        <BiosScreen 
+          onBiosComplete={() => setShowBios(false)} 
+          onSkipToDesktop={() => { 
+            setShowBios(false); 
+            setHasBooted(true);
+            if (bootAudioRef.current) {
+              bootAudioRef.current.pause();
+              bootAudioRef.current.currentTime = 0;
+            }
+          }} 
+          soundEnabled={soundEnabled} 
+        />
+      )}
       
       {/* Boot Screen */}
-      {!showBios && !hasBooted && <BootScreen onBootComplete={() => setHasBooted(true)} />}
+      {soundPromptShown && !showBlackScreen && !showBios && !hasBooted && (
+        <BootScreen 
+          onBootComplete={() => {
+            setHasBooted(true);
+            if (bootAudioRef.current) {
+              bootAudioRef.current.pause();
+              bootAudioRef.current.currentTime = 0;
+            }
+          }} 
+          onSkipToDesktop={() => {
+            setHasBooted(true);
+            if (bootAudioRef.current) {
+              bootAudioRef.current.pause();
+              bootAudioRef.current.currentTime = 0;
+            }
+          }} 
+          soundEnabled={soundEnabled}
+        />
+      )}
       
       {/* Screensaver */}
       {hasBooted && showScreensaver && <Screensaver onExit={() => setShowScreensaver(false)} />}
