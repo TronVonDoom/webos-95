@@ -4,12 +4,13 @@ import { WindowFrame } from './components/ui/WindowFrame';
 import { RetroButton } from './components/ui/RetroButton';
 import { ContextMenu } from './components/ui/ContextMenu';
 import { BootScreen } from './components/BootScreen';
+import { BiosScreen } from './components/BiosScreen';
 import { Screensaver } from './components/Screensaver';
 import { PixelStudio } from './components/apps/PixelStudio';
 import { Trivia } from './components/apps/Trivia';
 import { WebBrowser } from './components/apps/WebBrowser';
 import { Register } from './components/apps/Register';
-import { UsbDrive } from './components/apps/UsbDrive';
+import { FloppyDrive } from './components/apps/FloppyDrive';
 import { FileTransfer } from './components/apps/FileTransfer';
 import { Minesweeper } from './components/apps/Minesweeper';
 import { Notepad } from './components/apps/Notepad';
@@ -24,7 +25,7 @@ const ICONS = {
   [AppId.WEB_BROWSER]: 'https://win98icons.alexmeub.com/icons/png/world-0.png',
   [AppId.REGISTER]: 'https://win98icons.alexmeub.com/icons/png/key_win-0.png',
   [AppId.ABOUT]: 'https://win98icons.alexmeub.com/icons/png/help_question_mark-0.png',
-  [AppId.USB_DRIVE]: 'https://win98icons.alexmeub.com/icons/png/hard_disk_drive-0.png',
+  [AppId.FLOPPY_DRIVE]: 'https://win98icons.alexmeub.com/icons/png/floppy_drive_3_5_cool-0.png',
   [AppId.FILE_TRANSFER]: 'https://win98icons.alexmeub.com/icons/png/file_copy-0.png',
   [AppId.MINESWEEPER]: 'https://win98icons.alexmeub.com/icons/png/mine_sweeper-1.png',
   [AppId.TEXTCRAFT]: 'https://win98icons.alexmeub.com/icons/png/notepad-3.png',
@@ -53,8 +54,8 @@ const INITIAL_WINDOWS: Record<AppId, WindowState> = {
   [AppId.ABOUT]: {
     id: AppId.ABOUT, title: 'About RetroWave OS', isOpen: false, isMinimized: false, zIndex: 6, icon: ICONS[AppId.ABOUT], position: { x: 200, y: 200 }, resizable: false
   },
-  [AppId.USB_DRIVE]: {
-    id: AppId.USB_DRIVE, title: 'USB Drive (F:)', isOpen: false, isMinimized: false, zIndex: 7, icon: ICONS[AppId.USB_DRIVE], position: { x: 300, y: 100 }, resizable: false
+  [AppId.FLOPPY_DRIVE]: {
+    id: AppId.FLOPPY_DRIVE, title: '3½ Floppy (A:)', isOpen: false, isMinimized: false, zIndex: 7, icon: ICONS[AppId.FLOPPY_DRIVE], position: { x: 300, y: 100 }, resizable: false
   },
   [AppId.FILE_TRANSFER]: {
     id: AppId.FILE_TRANSFER, title: '0.49% of cc32e47.exe Completed', isOpen: false, isMinimized: false, zIndex: 100, icon: ICONS[AppId.FILE_TRANSFER], position: { x: 350, y: 250 }, resizable: false
@@ -89,6 +90,7 @@ const INITIAL_USB_FILES: FileItem[] = [
 ];
 
 const App: React.FC = () => {
+  const [showBios, setShowBios] = useState(true);
   const [hasBooted, setHasBooted] = useState(false);
   const [showScreensaver, setShowScreensaver] = useState(false);
   const [lastActivity, setLastActivity] = useState(Date.now());
@@ -268,8 +270,11 @@ const App: React.FC = () => {
 
   return (
     <>
+      {/* BIOS Screen */}
+      {showBios && <BiosScreen onBiosComplete={() => setShowBios(false)} onSkipToDesktop={() => { setShowBios(false); setHasBooted(true); }} />}
+      
       {/* Boot Screen */}
-      {!hasBooted && <BootScreen onBootComplete={() => setHasBooted(true)} />}
+      {!showBios && !hasBooted && <BootScreen onBootComplete={() => setHasBooted(true)} />}
       
       {/* Screensaver */}
       {hasBooted && showScreensaver && <Screensaver onExit={() => setShowScreensaver(false)} />}
@@ -315,7 +320,7 @@ const App: React.FC = () => {
             {win.id === AppId.MINESWEEPER && <Minesweeper />}
             {win.id === AppId.TEXTCRAFT && <Notepad />}
             {win.id === AppId.MEDIA_PLAYER && <MediaPlayer />}
-            {win.id === AppId.MY_COMPUTER && <MyComputer onOpenUsbDrive={() => handleOpen(AppId.USB_DRIVE)} />}
+            {win.id === AppId.MY_COMPUTER && <MyComputer onOpenFloppyDrive={() => handleOpen(AppId.FLOPPY_DRIVE)} />}
             {win.id === AppId.RECYCLE_BIN && (
               <div className="p-4 flex flex-col items-center justify-center h-full gap-4">
                 <img src={ICONS[AppId.RECYCLE_BIN]} className="w-16 h-16" />
@@ -326,8 +331,8 @@ const App: React.FC = () => {
             {win.id === AppId.IMAGE_VIEWER && activeImage && (
               <ImageViewer imageUrl={activeImage.url} fileName={activeImage.name} />
             )}
-            {win.id === AppId.USB_DRIVE && (
-              <UsbDrive files={usbFiles} onFileDrop={startTransfer} />
+            {win.id === AppId.FLOPPY_DRIVE && (
+              <FloppyDrive files={usbFiles} onFileDrop={startTransfer} />
             )}
             {win.id === AppId.FILE_TRANSFER && activeTransferFile && (
               <FileTransfer fileName={activeTransferFile} onCancel={() => handleClose(AppId.FILE_TRANSFER)} />

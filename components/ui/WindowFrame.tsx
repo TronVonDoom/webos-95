@@ -136,7 +136,7 @@ export const WindowFrame: React.FC<WindowFrameProps> = ({
       {/* Content */}
       <div 
         className="flex-1 overflow-auto bg-[#c0c0c0] h-full relative"
-        style={{ padding: id === 'USB_DRIVE' ? 0 : '0.25rem' }}
+        style={{ padding: id === 'FLOPPY_DRIVE' ? 0 : '0.25rem' }}
         onDragOver={(e) => { 
           e.preventDefault();
           console.log('WindowFrame dragOver for:', id);

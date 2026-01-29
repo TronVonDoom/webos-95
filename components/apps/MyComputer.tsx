@@ -11,7 +11,7 @@ interface FileSystemItem {
 }
 
 interface MyComputerProps {
-  onOpenUsbDrive: () => void;
+  onOpenFloppyDrive: () => void;
 }
 
 const FILE_SYSTEM: FileSystemItem[] = [
@@ -21,7 +21,13 @@ const FILE_SYSTEM: FileSystemItem[] = [
     icon: 'https://win98icons.alexmeub.com/icons/png/computer-1.png',
     items: [
       {
-        name: '(C:)',
+        name: '3½ Floppy (A:)',
+        type: 'drive',
+        icon: 'https://win98icons.alexmeub.com/icons/png/floppy_drive_3_5_cool-0.png',
+        items: []
+      },
+      {
+        name: 'C (C:)',
         type: 'drive',
         icon: 'https://win98icons.alexmeub.com/icons/png/hard_disk_drive-0.png',
         items: [
@@ -56,22 +62,16 @@ const FILE_SYSTEM: FileSystemItem[] = [
         ]
       },
       {
-        name: '(D:) CD-ROM',
+        name: 'CD-ROM (D:)',
         type: 'drive',
         icon: 'https://win98icons.alexmeub.com/icons/png/cd_drive-0.png',
-        items: []
-      },
-      {
-        name: '(F:) USB Drive',
-        type: 'drive',
-        icon: 'https://win98icons.alexmeub.com/icons/png/hard_disk_drive-0.png',
         items: []
       }
     ]
   }
 ];
 
-export const MyComputer: React.FC<MyComputerProps> = ({ onOpenUsbDrive }) => {
+export const MyComputer: React.FC<MyComputerProps> = ({ onOpenFloppyDrive }) => {
   const [currentPath, setCurrentPath] = useState<FileSystemItem[]>([FILE_SYSTEM[0]]);
   const [view, setView] = useState<'icons' | 'list'>('icons');
 
@@ -85,9 +85,9 @@ export const MyComputer: React.FC<MyComputerProps> = ({ onOpenUsbDrive }) => {
       alert(`Opening ${item.name}...`);
       return;
     }
-    // Check if it's the USB Drive - if so, open the USB window instead of navigating
-    if (item.name === '(F:) USB Drive') {
-      onOpenUsbDrive();
+    // Check if it's the Floppy Drive - if so, open the floppy window instead of navigating
+    if (item.name === '3½ Floppy (A:)') {
+      onOpenFloppyDrive();
       return;
     }
     setCurrentPath([...currentPath, item]);

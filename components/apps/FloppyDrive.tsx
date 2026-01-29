@@ -1,25 +1,25 @@
 import React from 'react';
 import { FileItem } from '../../types';
 
-interface UsbDriveProps {
+interface FloppyDriveProps {
   files: FileItem[];
   onFileDrop: (fileId: string) => void;
 }
 
-export const UsbDrive: React.FC<UsbDriveProps> = ({ files, onFileDrop }) => {
+export const FloppyDrive: React.FC<FloppyDriveProps> = ({ files, onFileDrop }) => {
   const [isDragOver, setIsDragOver] = React.useState(false);
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'copy';
     setIsDragOver(true);
-    console.log('Drag over USB drive');
+    console.log('Drag over floppy drive');
   };
 
   const handleDragLeave = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragOver(false);
-    console.log('Drag leave USB drive');
+    console.log('Drag leave floppy drive');
   };
 
   const handleDrop = (e: React.DragEvent) => {

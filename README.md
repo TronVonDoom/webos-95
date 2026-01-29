@@ -23,7 +23,7 @@ A fully functional '90s desktop simulator loaded with authentic nostalgia! Exper
 - **💻 My Computer** - Browse drives and folders with authentic file explorer
 - **🗑️ Recycle Bin** - Because every OS needs one
 - **🎯 Nostalgia Trivia** - Test your 90s knowledge
-- **📀 USB Drive** - Accessible through My Computer (drag and drop file simulation)
+- **� 3½ Floppy Drive** - Accessible through My Computer (drag and drop file simulation)
 
 ### 🎨 Visual Polish
 - Authentic retro OS color scheme (#008080 teal desktop!)
@@ -95,7 +95,7 @@ This enhanced version adds:
 ## 📝 Notes
 
 - This is a faithful recreation focusing on aesthetics and nostalgia
-- Some features are simulated (files, USB drives, etc.)
+- Some features are simulated (files, floppy drives, etc.)
 - The media player is visual only (no actual audio playback)
 - Perfect for reliving the '90s computing experience!
 
