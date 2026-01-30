@@ -43,6 +43,24 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, fileName }) 
     );
   }
 
+  // Check if it's a video file
+  const isVideo = imageUrl.endsWith('.mp4') || imageUrl.endsWith('.webm') || imageUrl.endsWith('.ogg');
+  
+  if (isVideo) {
+    return (
+      <div className="h-full w-full flex items-center justify-center bg-black">
+        <video
+          className="w-full h-full object-contain"
+          src={imageUrl}
+          autoPlay
+          loop
+          muted={false}
+          playsInline
+        />
+      </div>
+    );
+  }
+
   // Check if it's a YouTube URL (including Shorts)
   const isYouTube = imageUrl.includes('youtu');
   const isShorts = imageUrl.includes('/shorts/');
