@@ -50,7 +50,7 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, fileName }) 
     return (
       <div className="h-full w-full flex items-center justify-center bg-black">
         <video
-          className="w-full h-full object-contain"
+          className="w-full h-full object-cover"
           src={imageUrl}
           autoPlay
           loop
