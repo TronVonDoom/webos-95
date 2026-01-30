@@ -229,7 +229,7 @@ export const DesktopArea: React.FC<DesktopAreaProps> = ({ onCloseStartMenu }) =>
     if (!file) return;
 
     if (file.type === 'image' && file.url) {
-      openWindow(AppId.IMAGE_VIEWER);
+      openWindow(AppId.IMAGE_VIEWER, { imageUrl: file.url, fileName: file.name });
     } else if (file.type === 'text') {
       openWindow(AppId.TEXTCRAFT);
     }

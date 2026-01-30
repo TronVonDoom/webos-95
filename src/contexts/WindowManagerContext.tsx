@@ -12,7 +12,7 @@ interface WindowManagerContextType {
   topZIndex: number;
   
   // Window operations
-  openWindow: (id: AppId) => void;
+  openWindow: (id: AppId, data?: Record<string, unknown>) => void;
   closeWindow: (id: AppId) => void;
   minimizeWindow: (id: AppId) => void;
   focusWindow: (id: AppId) => void;
@@ -31,8 +31,8 @@ export const WindowManagerProvider: React.FC<{ children: React.ReactNode }> = ({
   const [windows, setWindows] = useState<Record<AppId, WindowState>>(INITIAL_WINDOWS);
   const [topZIndex, setTopZIndex] = useState(100);
 
-  const openWindow = useCallback((id: AppId) => {
-    console.log(`[WindowManager] Opening window: ${id}`);
+  const openWindow = useCallback((id: AppId, data?: Record<string, unknown>) => {
+    console.log(`[WindowManager] Opening window: ${id}`, data);
     soundSystem.pop();
     setWindows(prev => ({
       ...prev,
@@ -41,6 +41,7 @@ export const WindowManagerProvider: React.FC<{ children: React.ReactNode }> = ({
         isOpen: true,
         isMinimized: false,
         zIndex: topZIndex + 1,
+        data: data,
       },
     }));
     setTopZIndex(z => z + 1);

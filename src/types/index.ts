@@ -66,6 +66,7 @@ export interface WindowState {
   position: Position;
   size?: { width: number; height: number };
   resizable?: boolean;
+  data?: Record<string, unknown>; // Optional data passed to the window
 }
 
 /**

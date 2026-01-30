@@ -150,7 +150,7 @@ export const INITIAL_DESKTOP_FILES: FileItem[] = [
     name: 'Magical Nedrysaurus.gif',
     type: 'image',
     icon: FILE_ICONS.BMP,
-    url: 'https://youtu.be/fmz-K2hLwSI',
+    url: 'https://www.youtube.com/shorts/i6vAiG1G1Xs',
     position: { x: 100, y: 300 },
     location: 'desktop',
   },

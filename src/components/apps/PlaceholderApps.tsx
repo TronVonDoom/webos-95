@@ -43,16 +43,29 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, fileName }) 
     );
   }
 
-  // Check if it's a YouTube URL
+  // Check if it's a YouTube URL (including Shorts)
   const isYouTube = imageUrl.includes('youtu');
+  const isShorts = imageUrl.includes('/shorts/');
   
   if (isYouTube) {
-    const videoId = imageUrl.split('/').pop()?.split('?')[0];
+    // Extract video ID from various YouTube URL formats
+    let videoId = '';
+    if (isShorts) {
+      // Format: youtube.com/shorts/VIDEO_ID
+      videoId = imageUrl.split('/shorts/')[1]?.split('?')[0] || '';
+    } else if (imageUrl.includes('youtu.be/')) {
+      // Format: youtu.be/VIDEO_ID
+      videoId = imageUrl.split('youtu.be/')[1]?.split('?')[0] || '';
+    } else {
+      // Format: youtube.com/watch?v=VIDEO_ID
+      videoId = imageUrl.split('v=')[1]?.split('&')[0] || imageUrl.split('/').pop()?.split('?')[0] || '';
+    }
+    
     return (
-      <div className="h-full flex items-center justify-center bg-black">
+      <div className="h-full w-full flex items-center justify-center bg-black">
         <iframe
-          width="100%"
-          height="100%"
+          className="w-full h-full"
+          style={{ aspectRatio: '1/1', objectFit: 'cover' }}
           src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
           allow="autoplay; encrypted-media"
           allowFullScreen

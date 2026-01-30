@@ -59,9 +59,9 @@ const AppContent: React.FC = () => {
     exitScreensaver
   } = useSystem();
 
-  // Render the appropriate app component
-  const renderAppContent = (appId: AppId): React.ReactNode => {
-    switch (appId) {
+  // Render the appropriate app component with optional data from window state
+  const renderAppContent = (windowState: WindowState): React.ReactNode => {
+    switch (windowState.id) {
       case AppId.MY_COMPUTER:
         return <MyComputer />;
       case AppId.RECYCLE_BIN:
@@ -83,7 +83,10 @@ const AppContent: React.FC = () => {
       case AppId.MINESWEEPER:
         return <Minesweeper />;
       case AppId.IMAGE_VIEWER:
-        return <ImageViewer />;
+        return <ImageViewer 
+          imageUrl={windowState.data?.imageUrl as string} 
+          fileName={windowState.data?.fileName as string} 
+        />;
       default:
         return <div className="p-4">App not implemented</div>;
     }
@@ -150,7 +153,7 @@ const AppContent: React.FC = () => {
                   defaultPosition={window.position}
                   defaultSize={window.size}
                 >
-                  {renderAppContent(window.id)}
+                  {renderAppContent(window)}
                 </WindowFrame>
               </div>
             ))}
