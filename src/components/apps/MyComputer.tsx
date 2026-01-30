@@ -10,6 +10,7 @@ import { DRAG_TYPE_FILE } from '../desktop/DesktopIcon';
 import { RetroButton } from '../ui/RetroButton';
 import { useMessageBox, MessageBoxType } from '../ui/MessageBox';
 import { ContextMenu } from '../ui/ContextMenu';
+import { soundSystem } from '../../services/sounds';
 
 // Data type for protected items (drives, system files)
 const DRAG_TYPE_PROTECTED = 'application/x-webos-protected';
@@ -168,6 +169,12 @@ export const MyComputer: React.FC = () => {
   const [view, setView] = useState<'icons' | 'list'>('icons');
   const [isDragOver, setIsDragOver] = useState(false);
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; item: FileSystemItem } | null>(null);
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+
+  const handleItemClick = useCallback((itemName: string) => {
+    setSelectedItem(itemName);
+    soundSystem.select();
+  }, []);
 
   const current = currentPath[currentPath.length - 1];
 
@@ -241,17 +248,20 @@ export const MyComputer: React.FC = () => {
       openWindow(AppId.FLOPPY_DRIVE);
       return;
     }
+    setSelectedItem(null);
     setCurrentPath([...currentPath, item]);
   }, [currentPath, openWindow, showMessage]);
 
   const navigateBack = useCallback(() => {
     if (currentPath.length > 1) {
+      setSelectedItem(null);
       setCurrentPath(currentPath.slice(0, -1));
     }
   }, [currentPath]);
 
   const navigateUp = useCallback(() => {
     if (currentPath.length > 1) {
+      setSelectedItem(null);
       setCurrentPath(currentPath.slice(0, -1));
     }
   }, [currentPath]);
@@ -487,7 +497,12 @@ export const MyComputer: React.FC = () => {
                   draggable={true}
                   onDragStart={handleDragStart}
                   onContextMenu={(e) => handleContextMenu(e, item)}
-                  className={`flex flex-col items-center gap-1 p-2 hover:bg-[#000080]/20 hover:border hover:border-dotted hover:border-[#000080] cursor-move`}
+                  onClick={() => handleItemClick(item.name)}
+                  className={`flex flex-col items-center gap-1 p-2 cursor-pointer ${
+                    selectedItem === item.name 
+                      ? 'bg-[#000080] text-white' 
+                      : 'hover:bg-[#000080]/20 hover:border hover:border-dotted hover:border-[#000080]'
+                  }`}
                   onDoubleClick={() => navigateTo(item)}
                 >
                   <img src={item.icon} alt={item.name} className="w-12 h-12 pixelated pointer-events-none" draggable={false} />
@@ -530,7 +545,12 @@ export const MyComputer: React.FC = () => {
                     draggable={true}
                     onDragStart={handleDragStart}
                     onContextMenu={(e) => handleContextMenu(e, item)}
-                    className={`hover:bg-[#000080] hover:text-white cursor-move`}
+                    onClick={() => handleItemClick(item.name)}
+                    className={`cursor-pointer ${
+                      selectedItem === item.name 
+                        ? 'bg-[#000080] text-white' 
+                        : 'hover:bg-[#000080] hover:text-white'
+                    }`}
                     onDoubleClick={() => navigateTo(item)}
                   >
                     <td className="p-1 flex items-center gap-2">

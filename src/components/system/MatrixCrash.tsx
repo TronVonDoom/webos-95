@@ -23,6 +23,7 @@ export const MatrixCrash: React.FC<MatrixCrashProps> = ({ onComplete: _onComplet
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [fadeOpacity, setFadeOpacity] = useState(0);
   const [showFinalMessage, setShowFinalMessage] = useState(false);
+  const [pressedF, setPressedF] = useState(false);
   const dropsRef = useRef<Drop[]>([]);
   const animationRef = useRef<number>();
 
@@ -130,8 +131,17 @@ export const MatrixCrash: React.FC<MatrixCrashProps> = ({ onComplete: _onComplet
       setShowFinalMessage(true);
     }, 5000);
 
+    // Listen for F key press
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'f' || e.key === 'F') {
+        setPressedF(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
     return () => {
       window.removeEventListener('resize', resize);
+      window.removeEventListener('keydown', handleKeyDown);
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
@@ -232,9 +242,16 @@ export const MatrixCrash: React.FC<MatrixCrashProps> = ({ onComplete: _onComplet
               [ Restart Computer ]
             </button>
             
-            <div className="text-gray-600 font-mono text-xs mt-2">
+            <div className="text-yellow-400 font-mono text-sm mt-3 animate-pulse">
               Press F to pay respects to your system files
             </div>
+            
+            {pressedF && (
+              <div className="text-red-400 font-mono text-sm mt-2 animate-bounce">
+                😤 Really?! You just deleted System32 and NOW you're paying respects?!<br/>
+                A little late for that, don't you think?!
+              </div>
+            )}
           </div>
         </div>
       )}

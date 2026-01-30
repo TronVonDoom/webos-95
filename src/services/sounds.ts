@@ -229,6 +229,28 @@ class SoundSystem {
     oscillator.stop(ctx.currentTime + 0.06);
   }
 
+  // Selection sound (soft click for selecting items)
+  select() {
+    if (!this.enabled) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+    
+    oscillator.frequency.value = 600;
+    oscillator.type = 'square';
+    
+    gainNode.gain.setValueAtTime(0.08, ctx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.03);
+    
+    oscillator.start(ctx.currentTime);
+    oscillator.stop(ctx.currentTime + 0.03);
+  }
+
   // Notification/Alert (two-tone beep)
   notify() {
     if (!this.enabled) return;
