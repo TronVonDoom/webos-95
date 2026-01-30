@@ -1,8 +1,10 @@
 // ============================================================================
 // Windows 95-style Message Box Component
+// Uses React Portal to render at document body level for proper z-index
 // ============================================================================
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { RetroButton } from './RetroButton';
 
 export type MessageBoxType = 'error' | 'warning' | 'info' | 'question';
@@ -35,7 +37,8 @@ export const MessageBox: React.FC<MessageBoxProps> = ({
   onClose,
   buttons = [{ label: 'OK', onClick: onClose, primary: true }],
 }) => {
-  return (
+  // Use portal to render at document body level, escaping any stacking contexts
+  return ReactDOM.createPortal(
     <div className="fixed inset-0 z-[99999] flex items-center justify-center">
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/20" onClick={onClose} />
@@ -85,7 +88,8 @@ export const MessageBox: React.FC<MessageBoxProps> = ({
           ))}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
