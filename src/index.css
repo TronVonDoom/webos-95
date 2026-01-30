@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Prevent text selection globally for the retro OS feel */
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection only in text inputs and textareas */
+input, textarea {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Windows 95 style bevels and shadows */
+.bevel-out {
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  box-shadow: inset 1px 1px 0 #dfdfdf, inset -1px -1px 0 #0a0a0a;
+}
+
+.bevel-in {
+  border: 2px solid;
+  border-color: #808080 #ffffff #ffffff #808080;
+  box-shadow: inset 1px 1px 0 #0a0a0a, inset -1px -1px 0 #dfdfdf;
+}
+
+.bevel-light {
+  border: 1px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+}
+
+/* Title bar gradient like Windows 95 */
+.title-bar-active {
+  background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
+}
+
+.title-bar-inactive {
+  background: linear-gradient(90deg, #808080 0%, #a0a0a0 100%);
+}
+
+/* Retro button styles */
+.retro-button {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  box-shadow: inset 1px 1px 0 #dfdfdf;
+  padding: 2px 8px;
+  min-width: 75px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.retro-button:hover {
+  background: #d4d4d4;
+}
+
+.retro-button:active {
+  border-color: #808080 #ffffff #ffffff #808080;
+  box-shadow: inset 1px 1px 0 #0a0a0a;
+  padding: 3px 7px 1px 9px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: #c0c0c0;
+  border: 1px solid #808080;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+}
+
+::-webkit-scrollbar-button {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+}
+
+/* Desktop icon text */
+.desktop-icon-text {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+/* Pixelated rendering for icons */
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Start menu hover */
+.start-menu-item {
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.start-menu-item:hover {
+  background: #000080;
+  color: white;
+}
+
+/* Context menu */
+.context-menu {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.context-menu-item {
+  padding: 4px 24px 4px 8px;
+  cursor: pointer;
+}
+
+.context-menu-item:hover {
+  background: #000080;
+  color: white;
+}
+
+/* Window frame */
+.window-frame {
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #ffffff #808080 #808080 #ffffff;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Prevent text selection on UI elements */
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Custom focus styles */
+*:focus {
+  outline: 1px dotted #000;
+  outline-offset: -1px;
+}
+
+button:focus, input:focus, textarea:focus {
+  outline: 2px solid #000080;
+  outline-offset: 0;
+}
+
+/* Mono font for notepad etc */
+.font-mono-win95 {
+  font-family: 'Fixedsys', 'Courier New', Courier, monospace;
+}
+
+/* Base font */
+body {
+  font-family: 'MS Sans Serif', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 11px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Animation for boot screen */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.blink {
+  animation: blink 1s infinite;
+}
+
+/* Screensaver animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
