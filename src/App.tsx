@@ -34,7 +34,8 @@ import {
   WebBrowser,
   Register,
   Minesweeper,
-  MediaPlayer
+  MediaPlayer,
+  JurassicTerminal
 } from './components/apps';
 
 // ============================================================================
@@ -87,6 +88,8 @@ const AppContent: React.FC = () => {
           imageUrl={windowState.data?.imageUrl as string} 
           fileName={windowState.data?.fileName as string} 
         />;
+      case AppId.JURASSIC_TERMINAL:
+        return <JurassicTerminal />;
       default:
         return <div className="p-4">App not implemented</div>;
     }

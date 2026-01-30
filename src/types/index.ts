@@ -19,6 +19,7 @@ export enum AppId {
   MY_COMPUTER = 'MY_COMPUTER',
   RECYCLE_BIN = 'RECYCLE_BIN',
   IMAGE_VIEWER = 'IMAGE_VIEWER',
+  JURASSIC_TERMINAL = 'JURASSIC_TERMINAL',
 }
 
 /**
@@ -144,6 +145,7 @@ export interface FileSystemItem {
   items?: FileSystemItem[];
   isDriveRoot?: boolean;
   isSystemFile?: boolean;
+  isJurassicTerminal?: boolean; // Easter egg - opens Jurassic Park security terminal
 }
 
 /**

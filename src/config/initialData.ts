@@ -139,21 +139,24 @@ export const INITIAL_WINDOWS: Record<AppId, WindowState> = {
     position: { x: 200, y: 100 },
     resizable: true,
   },
+  [AppId.JURASSIC_TERMINAL]: {
+    id: AppId.JURASSIC_TERMINAL,
+    title: 'C:\\SECURITY\\JURASSIC_PARK.EXE',
+    isOpen: false,
+    isMinimized: false,
+    zIndex: 14,
+    icon: APP_ICONS[AppId.JURASSIC_TERMINAL],
+    position: { x: 50, y: 30 },
+    resizable: false,
+    size: { width: 700, height: 500 },
+  },
 };
 
 /**
  * Initial files on the desktop
  */
 export const INITIAL_DESKTOP_FILES: FileItem[] = [
-  {
-    id: 'magical_nedrysaurus',
-    name: 'Magical Nedrysaurus.gif',
-    type: 'image',
-    icon: FILE_ICONS.BMP,
-    url: '/assets/magic_word.mp4',
-    position: { x: 100, y: 300 },
-    location: 'desktop',
-  },
+  // Desktop is empty by default
 ];
 
 /**

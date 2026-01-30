@@ -26,6 +26,7 @@ export const APP_ICONS: Record<AppId, string> = {
   [AppId.MY_COMPUTER]: `${ICON_BASE}/computer-1.png`,
   [AppId.RECYCLE_BIN]: `${ICON_BASE}/recycle_bin_full-2.png`,
   [AppId.IMAGE_VIEWER]: `${ICON_BASE}/paint_file-0.png`,
+  [AppId.JURASSIC_TERMINAL]: `${ICON_BASE}/console_prompt-0.png`,
 };
 
 /**
@@ -64,6 +65,8 @@ export const FILE_ICONS = {
   TTF: `${ICON_BASE}/charmap-0.png`,
   DAT: `${ICON_BASE}/file_lines-0.png`,
   LOG: `${ICON_BASE}/notepad_file-0.png`,
+  CMD: `${ICON_BASE}/console_prompt-0.png`,
+  BAT: `${ICON_BASE}/console_prompt-0.png`,
   DEFAULT: `${ICON_BASE}/file_question-0.png`,
 };
 

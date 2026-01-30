@@ -148,6 +148,8 @@ const FILE_SYSTEM: FileSystemItem[] = [
               { name: 'resume.doc', type: 'file', icon: FILE_ICONS.DOC, size: '45 KB', modified: '03/15/1999' },
             ]
           },
+          // Easter egg - Jurassic Park security terminal
+          { name: 'central_park_control_console.cmd', type: 'file', icon: FILE_ICONS.CMD, size: '4 KB', modified: '06/11/1993', isJurassicTerminal: true },
         ]
       },
       {
@@ -209,6 +211,12 @@ export const MyComputer: React.FC = () => {
 
   const navigateTo = useCallback((item: FileSystemItem) => {
     if (item.type === 'file') {
+      // Easter egg - Jurassic Park security terminal
+      if (item.isJurassicTerminal) {
+        openWindow(AppId.JURASSIC_TERMINAL);
+        return;
+      }
+      
       // Check if it's a system file
       if (item.isSystemFile) {
         const ext = item.name.split('.').pop()?.toLowerCase() || '';
