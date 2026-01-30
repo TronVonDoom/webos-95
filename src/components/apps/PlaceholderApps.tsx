@@ -48,9 +48,9 @@ export const ImageViewer: React.FC<ImageViewerProps> = ({ imageUrl, fileName }) 
   
   if (isVideo) {
     return (
-      <div className="h-full w-full flex items-center justify-center bg-black">
+      <div className="h-full w-full flex items-center justify-center bg-white">
         <video
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain"
           src={imageUrl}
           autoPlay
           loop

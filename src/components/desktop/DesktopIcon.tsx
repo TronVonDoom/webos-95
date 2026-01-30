@@ -184,7 +184,7 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({
         left: position ? `${position.x}px` : 0, 
         top: position ? `${position.y}px` : 0,
         width: '80px',  // Slightly smaller than grid to have spacing
-        height: '80px',
+        height: '90px', // Taller to fit 3 lines of text
       }}
     >
       <img 
@@ -197,7 +197,7 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({
         className="text-white text-xs text-center drop-shadow-md font-sans leading-tight w-full px-1"
         style={{ 
           display: '-webkit-box',
-          WebkitLineClamp: 2,
+          WebkitLineClamp: 3,
           WebkitBoxOrient: 'vertical',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
